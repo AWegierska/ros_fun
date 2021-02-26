@@ -9,7 +9,7 @@ RUN apt-get install -y python3-pip #
 RUN pip3 install --upgrade pip
 RUN pip3 install notebook
 RUN pip3 install RISE
-RUN pip3 install opencv-contrib-python
+RUN pip3 install opencv-contrib-python ipywidgets
 RUN apt-get --yes install ros-noetic-joy ros-noetic-teleop-twist-joy \
   ros-noetic-teleop-twist-keyboard ros-noetic-laser-proc \
   ros-noetic-rgbd-launch ros-noetic-rosserial-arduino \
@@ -17,15 +17,26 @@ RUN apt-get --yes install ros-noetic-joy ros-noetic-teleop-twist-joy \
   ros-noetic-rosserial-msgs ros-noetic-amcl ros-noetic-map-server \
   ros-noetic-move-base ros-noetic-urdf ros-noetic-xacro \
   ros-noetic-compressed-image-transport ros-noetic-rqt-image-view \
-  ros-noetic-gmapping ros-noetic-navigation ros-noetic-interactive-markers 
-#ADD ./jupyter_notebooks/rviz_nav.rviz /opt/ros/noetic/share/nav2_bringup/rviz/nav2_default_view.rviz
-ENV USER ubuntu #
+  ros-noetic-gmapping ros-noetic-navigation ros-noetic-interactive-markers ros-noetic-teb-local-planner && rm -rf /var/lib/apt/lists/*
+#ADD ./jupyter_notebooks/rviz_nav.rviz /opt/ros/noetic/share/nav2_bringup/dockerrviz/nav2_default_view.rviz
+ENV USER ubuntu
 #from https://automaticaddison.com/how-to-install-and-launch-ros2-using-docker/
 RUN mkdir -p /home/ubuntu/catkin_ws/src
-WORKDIR /home/ubuntu/catkin_ws
+
+WORKDIR /home/ubuntu/catkin_ws/src
+RUN git clone https://github.com/AWegierska/multirobot_nav.git
+RUN git clone https://github.com/AWegierska/pkg_tsr.git
+
 ADD ./jupyter_notebooks /home/ubuntu/catkin_ws/src/jupyter_notebooks
 ADD ./run_jupyter.sh /home/ubuntu/run_jupyter.sh
 COPY setup.bash /home/ubuntu/setup.bash
+
 RUN ["/bin/bash", "-c", "/home/ubuntu/setup.bash"]
 COPY jupyter_notebook_config.py /home/ubuntu/.jupyter/jupyter_notebook_config.py
 RUN jupyter-nbextension install rise --py --sys-prefix
+RUN apt-get --yes install gedit
+RUN jupyter nbextension install --user --py widgetsnbextension
+RUN jupyter nbextension enable widgetsnbextension --user --py
+
+
+
