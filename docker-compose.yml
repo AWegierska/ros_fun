@@ -1,9 +1,10 @@
 version: "3"
 services:
-    ros2:
-        image: adohaha/fun_ros:presentation
+    ros1:
+        image: lab_rob_usl2
         volumes:
-            - $PWD/jupyter_notebooks:/home/ubuntu/turtlebot3_ws/src/jupyter_notebooks
+            - ./lab_rob_usl:/home/ubuntu/sketchbook/lab_rob_usl
+            - ./pkg_rob_usl:/home/ubuntu/catkin_ws/src/pkg_rob_usl
         ports: 
             - 6080:80
             - 8888:8888

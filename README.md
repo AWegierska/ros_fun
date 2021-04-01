@@ -1,27 +1,35 @@
-# Fun with ROS 2
+# Laboratorium robotów usługowych
 
-Robotics are fun and ROS 2 is a must.
+## Oprogramownie:
+ROS noetic
+Processing 3.5.4
+Dodatkowe biblioteki do Processingu w utworzonym katalogu sketchbook:
+- ROSProcessing (https://github.com/pronobis/ROSProcessing)
+- controlP5 (https://github.com/sojamo/controlp5)
 
-In this presentation I present a way to start, 100 % Python and Jupyter based.
+## Pobranie materiałow do zajęć
+Do obrazu należy pobrać również dodatkowe materiały do laboratorium.
+Po sklonowaniu tego repozytorium w katalogu ros_fun należy sklonować repozytoria:
 
-Use 
+***git clone https://github.com/AWegierska/pkg_rob_usl.git***
 
-`docker-compose up ` to run the container.
+***git clone https://github.com/AWegierska/lab_rob_usl.git***
 
-Also, run 
-
-`docker container exec -it --user ubuntu ros_fun bash -i /home/ubuntu/run_jupyter.sh`
-
-to start jupyter inside the container.
-
-Access the virtual machine screen by navigating to 
+## Dostęp
+Dostęp do ekranu kontenera z poziomu przeglądarki:
 
 [http://localhost:6080](http://localhost:6080)
 
-access the jupyter notebooks by navigating to:
+
+Dostęp do notatnika jupyter notebook z poziomu przeglądarki możliwy jest po uruchomieniu w kontenerze skrótu z pulpitu z notatnikiem. Jeśli nie działa to należy uruchomić tam terminal i wpisać:
+
+*jupyter notebook*
+
+Następnie w oknie przeglądarki z poziomu dockera lub przeglądarki głównego systemu dostęp do *jupyter notebook* możliwy jest po wpisaniu:
 
 [http://localhost:8888](http://localhost:8888) 
 
-on your **host** machine. 
+## Uruchomienie środowiska
+Z poziomu terminala w katalogu ros_fun należy wpisać polecenie:
 
-From there open [*fun_with_ROS_2.ipynb*](http://localhost:8888/fun_with_ROS_2.ipynb) to access the presentation and demos.
+***docker-compose up***
