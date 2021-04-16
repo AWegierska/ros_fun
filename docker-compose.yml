@@ -7,7 +7,7 @@ services:
             - ./pkg_rob_usl:/home/ubuntu/catkin_ws/src/pkg_rob_usl
         ports: 
             - 6080:8080
-            - 8888:8889
+            - 8889:8888
         shm_size: '2gb'
         container_name: ros_fun
     
