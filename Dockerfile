@@ -5,7 +5,7 @@ RUN mkdir /usr/share/processing
 ADD processing-3.5.4 /usr/share/processing/processing-3.5.4
 ADD processing.desktop /home/ubuntu/Desktop/processing.desktop
 ADD sketchbook /home/ubuntu/sketchbook
-ADD jupyter.sh /home/ubuntu/Desktop/jupyter.sh
+ADD jupyter.sh /home/ubuntu/jupyter.sh
 
 RUN apt-get --yes install ros-noetic-rosbridge-server
 RUN git clone https://github.com/AWegierska/pkg_rob_usl.git /home/ubuntu/catkin_ws/src/pkg_rob_usl
