@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Processing
+GenericName=Processing
+Comment=Processing 3.5.4
+Icon=/usr/share/processing/processing-3.5.4/lib/icons/pde-64.png
+TryExec=/usr/share/processing/processing-3.5.4/processing
+Exec=/usr/share/processing/processing-3.5.4/processing
