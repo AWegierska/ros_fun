@@ -1,14 +1,14 @@
 version: "3"
 services:
-    ros2:
-        image: adohaha/fun_ros:presentation
+    lab_mobilne:
+        image: awegierska/lab_ros_noetic:lab_mobilne
         volumes:
-            - $PWD/jupyter_notebooks:/home/ubuntu/turtlebot3_ws/src/jupyter_notebooks
+            - $PWD/Desktop:/home/ubuntu/Desktop/
         ports: 
             - 6080:80
             - 8888:8888
         shm_size: '2gb'
-        container_name: ros_fun
+        container_name: lab_mobilne
     
     
       
