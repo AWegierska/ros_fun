@@ -1,0 +1,14 @@
+robot_3:
+  omega_max: 2
+  v_max: 4
+  goal_tolerance: 0.05
+  tryb: "auto"
+
+robot_4:
+  omega_max: 2
+  v_max: 4
+  goal_tolerance: 
+    x: 0.1
+    y: 0.05
+    angle: deg(180)
+  tryb: "manual"
