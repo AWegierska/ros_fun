@@ -3,7 +3,7 @@ services:
     lab_mobilne:
         image: awegierska/lab_ros_noetic:lab_mobilne
         volumes:
-            - $PWD/Desktop:/home/ubuntu/Desktop/
+            - ./Desktop:/home/ubuntu/Desktop/
         ports: 
             - 6080:80
             - 8888:8888
