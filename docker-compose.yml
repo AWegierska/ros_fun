@@ -2,6 +2,8 @@ version: "3"
 services:
     lab_mobilne:
         image: awegierska/lab_ros_noetic:lab_mobilne
+        environment:
+            TZ: "Europe/Warsaw"
         volumes:
             - ./Desktop:/home/ubuntu/Desktop/
         ports: 
