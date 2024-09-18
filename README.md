@@ -50,3 +50,11 @@ The demo uses ROS Humble
 ---
 
 [Presentation Robot Fun with ROS2 from PyCon PL](https://www.youtube.com/watch?v=K5yGKd7ig7A)
+
+
+Budowa bazy docker'a
+docker build --tag awegierska/ros2_humble:lab_mobile_robots_base -f Dockerfile .
+
+Budowa docelowej wersji
+docker build --tag awegierska/ros2_humble:lab_mobile_robots -f Dockerfile_upgrade .
+

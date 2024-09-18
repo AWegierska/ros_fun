@@ -1,8 +1,7 @@
-FROM adohaha/fun_ros:humble
-LABEL maintainer igorzubrycki@gmail.com
+FROM awegierska/ros2_humble:lab_mobile_robots_base
+LABEL maintainer="wegierska.agnieszka@gmail.com"
 
+ENV USER=ubuntu
 
-ENV USER ubuntu
-
-RUN pip3 install bqplot
-RUN pip3 install tornado==6.1
+COPY ./jupyter_notebooks /home/ubuntu/turtlebot3_ws/src/jupyter_notebooks
+COPY ./files_to_copy/bashrc /home/ubuntu/.bashrc
