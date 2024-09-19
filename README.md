@@ -53,8 +53,10 @@ The demo uses ROS Humble
 
 
 Budowa bazy docker'a
-docker build --tag awegierska/ros2_humble:lab_mobile_robots_base -f Dockerfile .
+
+`docker build --tag awegierska/ros2_humble:lab_mobile_robots_base -f Dockerfile .`
 
 Budowa docelowej wersji
-docker build --tag awegierska/ros2_humble:lab_mobile_robots -f Dockerfile_upgrade .
+
+`docker build --tag awegierska/ros2_humble:lab_mobile_robots -f Dockerfile_upgrade .`
 
