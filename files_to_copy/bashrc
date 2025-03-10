@@ -1,11 +1,21 @@
 source /opt/ros/humble/setup.bash
 export GAZEBO_RESOURCE_PATH=/usr/share/gazebo-11:$GAZEBO_RESOURCE_PATH
+export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/home/ubuntu/turtlebot3_ws/src/turtlebot3_simulations/turtlebot3_gazebo/models:/home/ubuntu/create3_ws/src/aws-robomaker-small-house-world/models
 
 # TB3
 source ~/turtlebot3_ws/install/setup.bash
-export GAZEBO_MODEL_PATH=$GAZEBO_MODEL_PATH:/home/ubuntu/turtlebot3_ws/src/turtlebot3_simulations/turtlebot3_gazebo/models
 export TURTLEBOT3_MODEL=burger # burger waffle waffle_pi
 export LDS_MODEL=LDS-01
 
 #export ROS_DOMAIN_ID=30 #TURTLEBOT3; Ustawienie domeny dla robota, aby nie zakłócał komunikacji z innym robotem w tej samej sieci.
+
+#iCreate
+source ~/create3_ws/install/setup.bash
+export IGNITION_VERSION=fortress
+
 source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash
+
+source ~/ros_ws/install/setup.bash
+
+# Inne ustawienia
+source ~/tsr_workspaces/example_tsr_ws/install/setup.bash

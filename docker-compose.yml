@@ -1,15 +1,12 @@
-version: "3"
 services:
     ros2:
-        image: awegierska/ros2_humble:lab_mobile_robots
+        image: awegierska/ros2_humble:lab_mobile_ROS2
+        container_name: lab_mobilne_ROS2
         volumes:
-            - ./instrukcje:/home/ubuntu/Desktop/instrukcje
-            # - ./jupyter_notebooks:/home/ubuntu/turtlebot3_ws/src/jupyter_notebooks
+            - ./common_dir:/home/ubuntu/Desktop/common_dir
             - ./gazebo:/home/ubuntu/.gazebo
-        ports: 
+        ports:
             - 6080:80
             - 8888:8888
-        shm_size: '512m'
-        container_name: lab_mobilne_new
+        shm_size: '2g'
         privileged: true
-      

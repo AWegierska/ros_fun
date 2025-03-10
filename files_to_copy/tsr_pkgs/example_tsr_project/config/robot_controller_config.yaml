@@ -1,0 +1,6 @@
+/robot_controller:  # parametry konfiguracyjne dla wezła robot_controller uruchamianego z pliku parameters_node.py
+  ros__parameters:
+    robot_id: "SimRobot1"
+    robot_max_v: 1.0
+    robot_max_w: 4.0
+    robot_type: "default"

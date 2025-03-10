@@ -54,9 +54,15 @@ The demo uses ROS Humble
 
 Budowa bazy docker'a
 
-`docker build --tag awegierska/ros2_humble:lab_mobile_robots_base -f Dockerfile .`
+`docker build --tag awegierska/ros2_humble:lab_mobile_ROS2_base -f Dockerfile .`
 
 Budowa docelowej wersji
 
-`docker build --tag awegierska/ros2_humble:lab_mobile_robots -f Dockerfile_upgrade .`
+`docker build --tag awegierska/ros2_humble:lab_mobile_ROS2 -f Dockerfile_upgrade .`
 
+Uruchomienie docker compose
+'docker compose up'
+
+
+Uruchomienie docker compose z X11
+'docker compose -f docker-compose-x11.yml up'

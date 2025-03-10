@@ -1,0 +1,6 @@
+turtlesim/Pose goal_pose  # Współrzędne docelowe
+---
+bool success  # Czy pomyślnie zakończono dojazd do celu
+string message  # Komunikat o wyniku
+---
+float32 distance_remaining  # Odległość do celu

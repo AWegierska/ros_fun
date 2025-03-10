@@ -1,0 +1,4 @@
+turtlesim/Pose goal_pose  # Współrzędne docelowe
+---
+bool success  # Czy dodano nowy cel dla robota
+string message  # Komunikat o wyniku

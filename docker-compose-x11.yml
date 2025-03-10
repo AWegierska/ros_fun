@@ -1,0 +1,14 @@
+services:
+    ros2:
+        image: awegierska/ros2_humble:lab_mobile_ROS2
+        container_name: lab_mobilne_ROS2_x11
+        network_mode: "host"  # Użycie trybu host
+        volumes:
+            - ./common_dir:/home/ubuntu/Desktop/common_dir
+            - ./gazebo:/home/ubuntu/.gazebo
+            - /tmp/.X11-unix:/tmp/.X11-unix  # Montowanie socketu X11
+        environment:
+            - DISPLAY=99 #${DISPLAY}  # Przekazanie zmiennej DISPLAY do kontenera
+            - RMW_IMPLEMENTATION=rmw_fastrtps_cpp  # rmw_cyclonedds_cpp lub rmw_fastrtps_cpp dla FastDDS
+        shm_size: '2g'
+        privileged: true

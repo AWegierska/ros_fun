@@ -19,6 +19,12 @@ RUN apt-get update -q && \
         ros-humble-gazebo-* \
         ros-humble-dynamixel-sdk \
         ros-humble-test-msgs \
+        ros-humble-rqt-tf-tree \
+        ros-humble-plotjuggler-ros \
+        ros-humble-turtle-tf2-py \
+        ros-humble-tf2-ros \ 
+        ros-humble-tf2-tools \
+        ros-humble-turtlesim \
         python3-zmq \
         chromium-browser \
         lcov \
@@ -43,7 +49,10 @@ RUN pip3 install --upgrade pip && \
 ENV USER=ubuntu
 
 # Kopiowanie niezbędnych plików
-COPY ./jupyter_notebooks/rviz_nav.rviz /opt/ros/humble/share/nav2_bringup/rviz/nav2_default_view.rviz
+RUN mkdir -p /home/ubuntu/ros_ws/src
+COPY ./files_to_copy/jupyter_notebooks/rviz_nav.rviz /opt/ros/humble/share/nav2_bringup/rviz/nav2_default_view.rviz
+ADD ./files_to_copy/jupyter_notebooks /home/ubuntu/ros_ws/src/jupyter_notebooks
+RUN cd /home/ubuntu/ros_ws && . /opt/ros/humble/setup.sh && colcon build --symlink-install
 
 #from https://ubuntu.com/blog/simulate-the-turtlebot3
 RUN mkdir -p /home/ubuntu/turtlebot3_ws/src
@@ -55,3 +64,7 @@ RUN cd /home/ubuntu/turtlebot3_ws && source /opt/ros/humble/setup.sh && rosdep i
 
 RUN cd /home/ubuntu/turtlebot3_ws/src && git clone -b humble-devel https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git && git clone -b humble-devel https://github.com/ROBOTIS-GIT/turtlebot3.git && git clone -b humble-devel https://github.com/ROBOTIS-GIT/turtlebot3_msgs.git
 RUN cd /home/ubuntu/turtlebot3_ws && . /opt/ros/humble/setup.sh && colcon build --symlink-install
+
+RUN mkdir -p /home/ubuntu/tsr_workspaces/example_tsr_ws/src
+ADD ./files_to_copy/tsr_pkgs/ /home/ubuntu/tsr_workspaces/example_tsr_ws/src
+RUN cd /home/ubuntu/tsr_workspaces/example_tsr_ws && . /opt/ros/humble/setup.sh && colcon build --symlink-install
