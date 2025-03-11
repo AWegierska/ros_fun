@@ -6,7 +6,7 @@ services:
             - ./common_dir:/home/ubuntu/Desktop/common_dir
             - ./gazebo:/home/ubuntu/.gazebo
         ports:
-            - 6080:80
+            - 6080:6080
             - 8888:8888
         shm_size: '2g'
         privileged: true
