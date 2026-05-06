@@ -7,8 +7,7 @@ services:
         container_name: ros_fun_tsr_x11
         network_mode: host  # Użycie trybu host
         volumes:
-            - .:/workspaces/ros_fun
-            - ./gazebo:/home/vscode/.gazebo
+            - ./common_dir:/workspaces/ros_fun/common_dir
             - /tmp/.X11-unix:/tmp/.X11-unix  # Montowanie socketu X11
         environment:
             - DISPLAY=${DISPLAY:-:0}  # Przekazanie zmiennej DISPLAY do kontenera
@@ -17,7 +16,7 @@ services:
             - TURTLEBOT3_MODEL=burger
             - RMW_IMPLEMENTATION=rmw_fastrtps_cpp  # rmw_cyclonedds_cpp lub rmw_fastrtps_cpp dla FastDDS
             - LRM_numer_stanowiska=${LRM_numer_stanowiska:-}
-        working_dir: /workspaces/ros_fun
+        working_dir: /workspaces/ros_fun/common_dir
         command: >
             bash -lc '
               echo "ROS 2 Humble X11 container is running.";

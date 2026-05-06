@@ -30,9 +30,12 @@ for turtlesim and TurtleBot3 Gazebo exercises.
 ### GUI Desktop (noVNC)
 - Xvfb virtual framebuffer (1600x900)
 - Fluxbox window manager
+- Fluxbox right-click menu with ROS tools shortcuts
+- Fluxbox toolbar with window list (bottom)
 - x11vnc VNC server (port 5901)
 - websockify + noVNC web client (port 6080)
 - xterm terminal emulator
+- pcmanfm file manager
 
 ### Editors
 - `gedit` — graphical editor, available in VNC session
@@ -48,6 +51,8 @@ for turtlesim and TurtleBot3 Gazebo exercises.
 | Open multiple terminals in VNC | `new-gui-terminal` command |
 | Edit `.bashrc` | `edit-system-bashrc` (opens `/etc/bash.bashrc`) or `nano ~/.bashrc` |
 | Edit files in `common_dir/` via VNC | `gedit` or `nano` |
+| Browse shared folders in VNC | `pcmanfm /workspaces/ros_fun/common_dir` |
+| Access preloaded ROS 2 teaching packages | `/home/vscode/ros_ws/src` (`example_tsr_msgs`, `example_tsr_project`) |
 | Edit files locally | Host editor (volume mount) |
 | Edit files in Codespaces | VS Code editor |
 
@@ -55,7 +60,7 @@ for turtlesim and TurtleBot3 Gazebo exercises.
 
 | Host path | Container path | Purpose |
 |-----------|----------------|---------|
-| `.` (project root) | `/workspaces/ros_fun` | Full project access incl. `common_dir/` |
+| `./common_dir` | `/workspaces/ros_fun/common_dir` | Shared teaching files and student work |
 
 ## Environment Variables (container)
 

@@ -6,8 +6,7 @@ services:
         image: ros-fun-tsr-humble:latest
         container_name: ros_fun_tsr
         volumes:
-            - .:/workspaces/ros_fun
-            - ./gazebo:/home/vscode/.gazebo
+            - ./common_dir:/workspaces/ros_fun/common_dir
         ports:
             - 6080:6080
         environment:
@@ -17,7 +16,7 @@ services:
             - TURTLEBOT3_MODEL=burger
             - RMW_IMPLEMENTATION=rmw_fastrtps_cpp
             - LRM_numer_stanowiska=${LRM_numer_stanowiska:-}
-        working_dir: /workspaces/ros_fun
+        working_dir: /workspaces/ros_fun/common_dir
         restart: unless-stopped
         shm_size: '2g'
         privileged: true

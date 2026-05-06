@@ -41,7 +41,7 @@ Xvfb :1 (virtual display 1600x900)
               └─ noVNC web client → http://localhost:6080
 ```
 
-The noVNC `index.html` auto-redirects to `vnc_lite.html?autoconnect=true`.
+The noVNC `index.html` auto-redirects to `vnc.html?autoconnect=true`.
 
 ## devcontainer.json
 

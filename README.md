@@ -17,7 +17,9 @@ The image is based on `ros:humble-ros-base-jammy` and includes:
 - RViz 2,
 - rqt and common rqt plugins,
 - Gazebo Classic integration with TurtleBot3 Gazebo packages,
+- preloaded TSR ROS 2 example packages in `/home/vscode/ros_ws/src/`,
 - `gedit` and `nano` for editing files in the VNC session,
+- `pcmanfm` as a lightweight file manager in VNC,
 - a lightweight `Xvfb` + `fluxbox` + `x11vnc` + noVNC desktop.
 
 It intentionally does not install Jupyter, Chromium, the TurtleBot3
@@ -68,9 +70,42 @@ gedit /workspaces/ros_fun/common_dir/plik.py
 nano /workspaces/ros_fun/common_dir/plik.py
 ```
 
+To open PDF files in the GUI session:
+
+```bash
+evince /workspaces/ros_fun/common_dir/nazwa_pliku.pdf
+```
+
+Alternative helper command:
+
+```bash
+open-pdf /workspaces/ros_fun/common_dir/nazwa_pliku.pdf
+```
+
+In GitHub Codespaces, the most convenient option is to open PDFs directly from
+the VS Code file explorer in the browser tab (native scroll + text selection +
+copy/paste).
+
+The VNC desktop includes clipboard synchronization (`autocutsel`) to improve
+copy/paste between terminal windows. If needed, use the noVNC clipboard panel
+(`Ctrl+Alt+Shift`) as a fallback.
+
+Extra clipboard helper inside the container:
+
+```bash
+clip "ros2 topic list"   # copy text to CLIPBOARD
+clip                     # print current CLIPBOARD content
+```
+
+In `xterm`, selected text is copied directly to clipboard. Paste with
+`Ctrl+Shift+V` or middle mouse button.
+
 In GitHub Codespaces, use VS Code directly to edit files. When running locally,
 you can use your own editor on the host — files are available in the mounted
 project directory.
+
+In the noVNC desktop, open Fluxbox menu with right-click. Useful shortcuts:
+`Super+T` (terminal), `Super+F` (file manager), `Super+E` (`gedit`).
 
 To edit the system-wide Bash startup file from the noVNC terminal:
 
@@ -78,7 +113,7 @@ To edit the system-wide Bash startup file from the noVNC terminal:
 edit-system-bashrc
 ```
 
-This opens `/etc/bash.bashrc` with `sudo nano`. To edit the user Bash startup
+This opens `/etc/bash.bashrc` in `gedit` with sudo privileges. To edit the user Bash startup
 file instead, use:
 
 ```bash
@@ -93,6 +128,26 @@ new-gui-terminal
 
 You can run this command multiple times to keep separate terminals for ROS
 nodes.
+
+To open preloaded teaching packages:
+
+```bash
+pcmanfm ~/tsr_workspaces/example_tsr_ws/src
+```
+
+This folder contains `files_to_copy/tsr_pkgs` copied into
+`~/tsr_workspaces/example_tsr_ws/src` (`example_tsr_msgs`,
+`example_tsr_project`).
+
+Build them in:
+
+```bash
+cd ~/tsr_workspaces/example_tsr_ws
+colcon build
+```
+
+After building, new terminals automatically source:
+`~/tsr_workspaces/example_tsr_ws/install/setup.bash`.
 
 To build the Codespaces image locally:
 

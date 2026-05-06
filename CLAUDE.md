@@ -29,6 +29,7 @@ robotics lab sessions. The environment runs either locally or via GitHub Codespa
 - **Workdir**: `/home/vscode/ros_ws`
 - **Project mount**: `.` → `/workspaces/ros_fun`
 - **common_dir inside container**: `/workspaces/ros_fun/common_dir/`
+- **TSR packages inside container**: `/home/vscode/ros_ws/src/` (copied from `files_to_copy/tsr_pkgs/`)
 
 ## Installed ROS Packages
 
@@ -59,9 +60,21 @@ docker build -f .devcontainer/Dockerfile -t ros-fun-tsr-humble .
 - `new-gui-terminal` — open additional xterm in VNC session
 - `edit-system-bashrc` — edit `/etc/bash.bashrc` with sudo nano
 
+## Fluxbox Desktop Ergonomics
+
+- Right-click on desktop opens the fluxbox menu with:
+  - Terminal, File Manager (`pcmanfm`), Gedit
+  - quick links to `TSR_instrukcje` and `/home/vscode/ros_ws/src`
+  - ROS launchers (`turtlesim`, `rviz2`, `rqt`, `rqt_graph`, TurtleBot3 Gazebo)
+- Keyboard shortcuts:
+  - `Super+T` -> terminal
+  - `Super+F` -> file manager
+  - `Super+E` -> gedit
+- Toolbar is enabled at the bottom with window list and clock.
+
 ## File Editing
 
-- **VNC session**: `gedit` (GUI) or `nano` (terminal)
+- **VNC session**: `gedit` (GUI), `pcmanfm` (browse files), or `nano` (terminal)
 - **Codespaces**: VS Code editor directly
 - **Local**: use host editor — files are in the mounted project directory
 
