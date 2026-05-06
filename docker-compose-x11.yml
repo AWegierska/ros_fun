@@ -30,5 +30,6 @@ services:
               echo "  ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py";
               sleep infinity
             '
+        restart: unless-stopped
         shm_size: '2g'
         privileged: true

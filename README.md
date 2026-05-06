@@ -17,9 +17,10 @@ The image is based on `ros:humble-ros-base-jammy` and includes:
 - RViz 2,
 - rqt and common rqt plugins,
 - Gazebo Classic integration with TurtleBot3 Gazebo packages,
+- `gedit` and `nano` for editing files in the VNC session,
 - a lightweight `Xvfb` + `fluxbox` + `x11vnc` + noVNC desktop.
 
-It intentionally does not install Jupyter, Chromium, gedit, the TurtleBot3
+It intentionally does not install Jupyter, Chromium, the TurtleBot3
 desktop metapackage, Nav2, Cartographer, PlotJuggler, Create3,
 Ignition/Fortress or RMF.
 
@@ -59,6 +60,18 @@ rviz2
 ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
 ```
 
+To edit files in `common_dir/` from the noVNC desktop, use `gedit` (GUI) or
+`nano` (terminal):
+
+```bash
+gedit /workspaces/ros_fun/common_dir/plik.py
+nano /workspaces/ros_fun/common_dir/plik.py
+```
+
+In GitHub Codespaces, use VS Code directly to edit files. When running locally,
+you can use your own editor on the host — files are available in the mounted
+project directory.
+
 To edit the system-wide Bash startup file from the noVNC terminal:
 
 ```bash
@@ -71,6 +84,15 @@ file instead, use:
 ```bash
 nano ~/.bashrc
 ```
+
+To open additional GUI terminals inside noVNC:
+
+```bash
+new-gui-terminal
+```
+
+You can run this command multiple times to keep separate terminals for ROS
+nodes.
 
 To build the Codespaces image locally:
 

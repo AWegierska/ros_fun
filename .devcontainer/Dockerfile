@@ -18,6 +18,7 @@ RUN apt-get update && \
         cmake \
         curl \
         fluxbox \
+        gedit \
         git \
         less \
         nano \
@@ -35,7 +36,9 @@ RUN apt-get update && \
         ros-humble-turtlesim \
         sudo \
         websockify \
+        x11-xserver-utils \
         x11vnc \
+        xfonts-base \
         xterm \
         xvfb && \
     apt-get clean && \
@@ -66,11 +69,11 @@ RUN chmod +x /usr/local/bin/start-novnc.sh && \
         '<html lang="en">' \
         '<head>' \
         '  <meta charset="utf-8">' \
-        '  <meta http-equiv="refresh" content="0; url=vnc.html?autoconnect=true&resize=remote">' \
+        '  <meta http-equiv="refresh" content="0; url=vnc_lite.html?autoconnect=true">' \
         '  <title>ROS GUI noVNC</title>' \
         '</head>' \
         '<body>' \
-        '  <p>Opening <a href="vnc.html?autoconnect=true&resize=remote">noVNC</a>...</p>' \
+        '  <p>Opening <a href="vnc_lite.html?autoconnect=true">noVNC</a>...</p>' \
         '</body>' \
         '</html>' \
         > /usr/share/novnc/index.html && \
@@ -79,7 +82,14 @@ RUN chmod +x /usr/local/bin/start-novnc.sh && \
         'set -euo pipefail' \
         'exec sudo "${EDITOR:-nano}" /etc/bash.bashrc' \
         > /usr/local/bin/edit-system-bashrc && \
+    printf '%s\n' \
+        '#!/usr/bin/env bash' \
+        'set -euo pipefail' \
+        'DISPLAY="${DISPLAY:-:1}"' \
+        'xterm -geometry "${1:-120x32}" -fa Monospace -fs 11 -e bash -lc "cd /workspaces/ros_fun 2>/dev/null || cd \"$HOME/ros_ws\"; exec bash -l" >/tmp/xterm-extra.log 2>&1 &' \
+        > /usr/local/bin/new-gui-terminal && \
     chmod +x /usr/local/bin/edit-system-bashrc && \
+    chmod +x /usr/local/bin/new-gui-terminal && \
     printf '%s\n' \
         "source /opt/ros/humble/setup.bash" \
         "[ -f /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash ] && source /usr/share/colcon_argcomplete/hook/colcon-argcomplete.bash" \

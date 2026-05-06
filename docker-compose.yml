@@ -18,5 +18,6 @@ services:
             - RMW_IMPLEMENTATION=rmw_fastrtps_cpp
             - LRM_numer_stanowiska=${LRM_numer_stanowiska:-}
         working_dir: /workspaces/ros_fun
+        restart: unless-stopped
         shm_size: '2g'
         privileged: true
