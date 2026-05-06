@@ -104,6 +104,17 @@ clip                     # print current CLIPBOARD content
 In `xterm`, selected text is copied directly to clipboard. Paste with
 `Ctrl+Shift+V` or middle mouse button.
 
+Keyboard repeat is enabled in the noVNC session for smoother arrow-key
+navigation (left/right/up/down hold behavior). Defaults:
+- `KEY_REPEAT_DELAY=250`
+- `KEY_REPEAT_RATE=35`
+
+To verify inside the container:
+
+```bash
+xset -display :1 q
+```
+
 In GitHub Codespaces, use VS Code directly to edit files. When running locally,
 you can use your own editor on the host — files are available in the mounted
 project directory.

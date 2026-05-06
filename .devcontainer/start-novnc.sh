@@ -5,6 +5,8 @@ export DISPLAY="${DISPLAY:-:1}"
 export LIBGL_ALWAYS_SOFTWARE="${LIBGL_ALWAYS_SOFTWARE:-1}"
 export QT_X11_NO_MITSHM="${QT_X11_NO_MITSHM:-1}"
 export TURTLEBOT3_MODEL="${TURTLEBOT3_MODEL:-burger}"
+export KEY_REPEAT_DELAY="${KEY_REPEAT_DELAY:-250}"
+export KEY_REPEAT_RATE="${KEY_REPEAT_RATE:-35}"
 
 touch /tmp/x11vnc.log /tmp/fluxbox.log /tmp/xterm.log
 touch /tmp/start-novnc.trace
@@ -31,6 +33,11 @@ fi
 echo "[step] xsetroot" >> /tmp/start-novnc.trace
 xsetroot -display "$DISPLAY" -solid '#2e3436' || true
 
+# Enable keyboard auto-repeat with native-like timing for arrow keys in noVNC.
+echo "[step] keyboard repeat" >> /tmp/start-novnc.trace
+xset -display "$DISPLAY" r on || true
+xset -display "$DISPLAY" r rate "$KEY_REPEAT_DELAY" "$KEY_REPEAT_RATE" || true
+
 # Start window manager
 echo "[step] start fluxbox" >> /tmp/start-novnc.trace
 DISPLAY="$DISPLAY" fluxbox >/tmp/fluxbox.log 2>&1 &
@@ -52,6 +59,7 @@ DISPLAY="$DISPLAY" xterm -geometry 120x32+40+40 \
 # Start VNC server
 echo "[step] start x11vnc" >> /tmp/start-novnc.trace
 x11vnc -display "$DISPLAY" -forever -shared -nopw \
+    -repeat \
     -listen 0.0.0.0 -rfbport 5901 \
     -noxdamage -noscr -nowf \
     >>/tmp/x11vnc.log 2>&1 &

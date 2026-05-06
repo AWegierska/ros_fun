@@ -76,6 +76,8 @@ for turtlesim and TurtleBot3 Gazebo exercises.
 | `TURTLEBOT3_MODEL` | `burger` |
 | `RMW_IMPLEMENTATION` | `rmw_fastrtps_cpp` |
 | `LRM_numer_stanowiska` | configurable (`.env` or shell export) |
+| `KEY_REPEAT_DELAY` | `250` (keyboard repeat delay in ms, noVNC/X11) |
+| `KEY_REPEAT_RATE` | `35` (keyboard repeat rate, repeats per second) |
 
 ## Preloaded TSR Workspace
 
@@ -86,6 +88,13 @@ for turtlesim and TurtleBot3 Gazebo exercises.
   - `/home/vscode/tsr_workspaces/example_tsr_ws/install/setup.bash` (if present)
 - Manual rebuild remains available after edits:
   - `cd ~/tsr_workspaces/example_tsr_ws && colcon build`
+
+## Keyboard Behavior (noVNC)
+
+- Arrow-key hold repeat is enabled for xterm via X11 settings in startup script.
+- `x11vnc` runs with `-repeat` to avoid disabled key repeat behavior in VNC sessions.
+- Verify runtime settings in container:
+  - `xset -display :1 q`
 
 ## Intentionally Not Installed
 
