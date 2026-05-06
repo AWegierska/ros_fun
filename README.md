@@ -16,14 +16,16 @@ The image is based on `ros:humble-ros-base-jammy` and includes:
 - `turtlesim`,
 - RViz 2,
 - rqt and common rqt plugins,
+- rqt TF tree plugin,
+- PlotJuggler with ROS 2 integration,
 - Gazebo Classic integration with TurtleBot3 Gazebo packages,
-- preloaded TSR ROS 2 example packages in `/home/vscode/ros_ws/src/`,
+- preloaded TSR ROS 2 example packages in `/home/vscode/tsr_workspaces/example_tsr_ws/src/`,
 - `gedit` and `nano` for editing files in the VNC session,
 - `pcmanfm` as a lightweight file manager in VNC,
 - a lightweight `Xvfb` + `fluxbox` + `x11vnc` + noVNC desktop.
 
 It intentionally does not install Jupyter, Chromium, the TurtleBot3
-desktop metapackage, Nav2, Cartographer, PlotJuggler, Create3,
+desktop metapackage, Nav2, Cartographer, Create3,
 Ignition/Fortress or RMF.
 
 ### Running in GitHub Codespaces
@@ -58,7 +60,9 @@ Run GUI applications from the same terminal and view them through noVNC on port
 ```bash
 ros2 run turtlesim turtlesim_node
 rqt_graph
+rqt_tf_tree
 rviz2
+ros2 run plotjuggler plotjuggler
 ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
 ```
 
@@ -137,9 +141,15 @@ pcmanfm ~/tsr_workspaces/example_tsr_ws/src
 
 This folder contains `files_to_copy/tsr_pkgs` copied into
 `~/tsr_workspaces/example_tsr_ws/src` (`example_tsr_msgs`,
-`example_tsr_project`).
+`example_tsr_project`). The workspace is prebuilt in the image.
 
-Build them in:
+The interfaces are available right after container start, for example:
+
+```bash
+ros2 interface show example_tsr_msgs/msg/ExampleMsgType
+```
+
+Rebuild manually after editing packages:
 
 ```bash
 cd ~/tsr_workspaces/example_tsr_ws
@@ -194,7 +204,9 @@ Open forwarded port `6080` to use the graphical desktop. Example GUI commands:
 ```bash
 ros2 run turtlesim turtlesim_node
 rqt_graph
+rqt_tf_tree
 rviz2
+ros2 run plotjuggler plotjuggler
 ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
 ```
 

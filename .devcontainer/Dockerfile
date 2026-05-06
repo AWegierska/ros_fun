@@ -31,9 +31,12 @@ RUN apt-get update && \
         python3-rosdep \
         python3-vcstool \
         ros-humble-gazebo-ros-pkgs \
+        ros-humble-plotjuggler-ros \
         ros-humble-rqt \
         ros-humble-rqt-common-plugins \
+        ros-humble-rqt-tf-tree \
         ros-humble-rviz2 \
+        ros-humble-tf2-ros \
         ros-humble-turtlebot3-gazebo \
         ros-humble-turtlebot3-msgs \
         ros-humble-turtlesim \
@@ -74,6 +77,9 @@ RUN su - vscode -c 'for attempt in 1 2 3; do rosdep update --rosdistro humble &&
 
 COPY files_to_copy/tsr_pkgs/ /home/vscode/tsr_workspaces/example_tsr_ws/src/
 COPY .devcontainer/start-novnc.sh /usr/local/bin/start-novnc.sh
+
+RUN chown -R vscode:vscode /home/vscode/tsr_workspaces && \
+    su - vscode -c 'source /opt/ros/humble/setup.bash && cd /home/vscode/tsr_workspaces/example_tsr_ws && colcon build --symlink-install'
 
 RUN chmod +x /usr/local/bin/start-novnc.sh && \
     printf '%s\n' \
@@ -144,6 +150,8 @@ RUN chmod +x /usr/local/bin/start-novnc.sh && \
         '    [exec] (RViz2) {rviz2}' \
         '    [exec] (rqt) {rqt}' \
         '    [exec] (rqt_graph) {rqt_graph}' \
+        '    [exec] (rqt_tf_tree) {ros2 run rqt_tf_tree rqt_tf_tree}' \
+        '    [exec] (PlotJuggler) {ros2 run plotjuggler plotjuggler}' \
         '    [exec] (Gazebo TurtleBot3) {ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py}' \
         '  [end]' \
         '  [separator]' \

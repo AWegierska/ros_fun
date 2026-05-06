@@ -26,6 +26,9 @@ for turtlesim and TurtleBot3 Gazebo exercises.
 - TurtleBot3 simulation (`ros-humble-turtlebot3-gazebo`, `ros-humble-turtlebot3-msgs`)
 - RViz2 (`ros-humble-rviz2`)
 - rqt + common plugins (`ros-humble-rqt`, `ros-humble-rqt-common-plugins`)
+- rqt TF tree (`ros-humble-rqt-tf-tree`)
+- PlotJuggler (`ros-humble-plotjuggler-ros`)
+- tf2 ROS tools (`ros-humble-tf2-ros`)
 
 ### GUI Desktop (noVNC)
 - Xvfb virtual framebuffer (1600x900)
@@ -52,7 +55,8 @@ for turtlesim and TurtleBot3 Gazebo exercises.
 | Edit `.bashrc` | `edit-system-bashrc` (opens `/etc/bash.bashrc`) or `nano ~/.bashrc` |
 | Edit files in `common_dir/` via VNC | `gedit` or `nano` |
 | Browse shared folders in VNC | `pcmanfm /workspaces/ros_fun/common_dir` |
-| Access preloaded ROS 2 teaching packages | `/home/vscode/ros_ws/src` (`example_tsr_msgs`, `example_tsr_project`) |
+| Access preloaded ROS 2 teaching packages | `/home/vscode/tsr_workspaces/example_tsr_ws/src` (`example_tsr_msgs`, `example_tsr_project`) |
+| Use prebuilt TSR interfaces at startup | `ros2 interface show example_tsr_msgs/msg/ExampleMsgType` |
 | Edit files locally | Host editor (volume mount) |
 | Edit files in Codespaces | VS Code editor |
 
@@ -73,8 +77,18 @@ for turtlesim and TurtleBot3 Gazebo exercises.
 | `RMW_IMPLEMENTATION` | `rmw_fastrtps_cpp` |
 | `LRM_numer_stanowiska` | configurable (`.env` or shell export) |
 
+## Preloaded TSR Workspace
+
+- Workspace path: `/home/vscode/tsr_workspaces/example_tsr_ws`
+- Packages are copied and built during image build (`colcon build --symlink-install`)
+- Shell startup sources:
+  - `/opt/ros/humble/setup.bash`
+  - `/home/vscode/tsr_workspaces/example_tsr_ws/install/setup.bash` (if present)
+- Manual rebuild remains available after edits:
+  - `cd ~/tsr_workspaces/example_tsr_ws && colcon build`
+
 ## Intentionally Not Installed
 
 Jupyter, Chromium, gedit-alternatives (Codium/VSCodium), Nav2, Cartographer,
-PlotJuggler, Create3 simulation, Ignition/Fortress Gazebo, RMF, full Ubuntu
+Create3 simulation, Ignition/Fortress Gazebo, RMF, full Ubuntu
 desktop metapackage, MATE session.
