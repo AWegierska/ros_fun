@@ -1,68 +1,118 @@
 # Fun with ROS 2
 
-Robotics is fun and ROS 2 is a must.
-
-In this workshop, we will play around with ROS 2 and Simulating some robots
-
-You need to have Docker and docker compose installed.
-It can be docker engine:
-Instructions for Ubuntu are provided [here](https://docs.docker.com/engine/install/ubuntu/)
-
-but for beginners, an easier option might be Docker Desktop: [Windows](https://docs.docker.com/desktop/install/windows-install/) [Linux](https://docs.docker.com/desktop/install/linux-install/), [Mac](https://docs.docker.com/desktop/install/mac-install/)
-
-
-
-
-https://github.com/AdoHaha/ros_fun/assets/2242877/33d32bce-2f59-4905-88df-bea3bd0eb838
-
-
- I suggest cloning this repository.
-
-
-`git clone https://github.com/AdoHaha/ros_fun`
-
-`cd ros_fun`
-
-Use 
-
-`docker compose up ` to run the container.
-
-Also, run 
-
-`docker container exec -it --user ubuntu ros_fun bash -i /home/ubuntu/run_jupyter.sh`
-
-to start jupyter inside the container.
-
-Access the virtual machine screen by navigating to 
-
-[http://localhost:6080](http://localhost:6080)
-
-access the jupyter notebooks by navigating to:
-
-[http://localhost:8888](http://localhost:8888) 
-
-on your **host** machine. 
-
-From there open [*exercises folder*](http://localhost:8888/exercises/1.%20introduction.ipynb) to access introduction
-
-The demo uses ROS Humble
+Docker environment for ROS 2 Humble mobile robotics labs.
 
 ---
 
-[Presentation Robot Fun with ROS2 from PyCon PL](https://www.youtube.com/watch?v=K5yGKd7ig7A)
+## Requirements
 
+You need Docker and Docker Compose installed.
 
-Budowa bazy docker'a
+For Ubuntu, you can install Docker Engine using the official instructions:
+[Docker Engine on Ubuntu](https://docs.docker.com/engine/install/ubuntu/)
 
-`docker build --tag awegierska/ros2_humble:lab_mobile_ROS2_base -f Dockerfile .`
+For beginners, Docker Desktop may be easier:
+[Windows](https://docs.docker.com/desktop/install/windows-install/),
+[Linux](https://docs.docker.com/desktop/install/linux-install/),
+[Mac](https://docs.docker.com/desktop/install/mac-install/)
 
-Budowa docelowej wersji
+Alternatively, you can use GitHub Codespaces.
 
-`docker build --tag awegierska/ros2_humble:lab_mobile_ROS2 -f Dockerfile_upgrade .`
+---
 
-Uruchomienie docker compose
-'docker compose up'
+## Run the Container
 
+With X11:
 
-Uruchomienie docker compose z X11
-'docker compose -f docker-compose-x11.yml up'
+```bash
+docker compose -f docker-compose-x11.yml up
+```
+
+Without X11, using the browser-based desktop:
+
+```bash
+docker compose up
+```
+
+After the container starts, open:
+
+[http://localhost:6080](http://localhost:6080)
+
+---
+
+## Build Docker Images
+
+Build the base image:
+
+```bash
+docker build --tag awegierska/ros2_humble:lab_mobile_ROS2_base -f Dockerfile .
+```
+
+Build the target image:
+
+```bash
+docker build --tag awegierska/ros2_humble:lab_mobile_ROS2 -f Dockerfile_upgrade .
+```
+
+---
+
+## Docker Images
+
+List local Docker images:
+
+```bash
+docker images
+```
+
+Remove the project Docker images:
+
+```bash
+docker rmi awegierska/ros2_humble:lab_mobile_ROS2
+docker rmi awegierska/ros2_humble:lab_mobile_ROS2_base
+```
+
+---
+
+## Docker Containers
+
+List all containers and check whether they are running or stopped:
+
+```bash
+docker ps -a
+```
+
+Restart the standard container:
+
+```bash
+docker restart lab_mobilne_ROS2
+```
+
+Restart the X11 container:
+
+```bash
+docker restart lab_mobilne_ROS2_x11
+```
+
+Stop and remove containers created by the standard Compose file:
+
+```bash
+docker compose down
+```
+
+Stop and remove containers created by the X11 Compose file:
+
+```bash
+docker compose -f docker-compose-x11.yml down
+```
+
+Remove the standard container manually:
+
+```bash
+docker rm lab_mobilne_ROS2
+```
+
+Remove the X11 container manually:
+
+```bash
+docker rm lab_mobilne_ROS2_x11
+```
