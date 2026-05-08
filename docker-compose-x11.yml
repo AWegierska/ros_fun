@@ -6,10 +6,17 @@ services:
         volumes:
             - ./common_dir:/home/ubuntu/Desktop/common_dir
             - ./gazebo:/home/ubuntu/.gazebo
-            - /tmp/.X11-unix:/tmp/.X11-unix  # Montowanie socketu X11
         environment:
-            - DISPLAY=99 #${DISPLAY}  # Przekazanie zmiennej DISPLAY do kontenera
             - RMW_IMPLEMENTATION=rmw_fastrtps_cpp  # rmw_cyclonedds_cpp lub rmw_fastrtps_cpp dla FastDDS
             - LRM_numer_stanowiska=${LRM_numer_stanowiska}
+        devices:
+            - /dev/dri:/dev/dri
+        group_add:
+            - video
+            - render
         shm_size: '2g'
         privileged: true
+        security_opt:
+            - seccomp:unconfined
+        # For NVIDIA GPUs, install NVIDIA Container Toolkit on the host and
+        # enable GPU passthrough separately, for example with: gpus: all
