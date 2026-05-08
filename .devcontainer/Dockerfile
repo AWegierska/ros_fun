@@ -109,6 +109,15 @@ RUN chmod +x /usr/local/bin/start-novnc.sh && \
     printf '%s\n' \
         '#!/usr/bin/env bash' \
         'set -euo pipefail' \
+        'target_dir="${1:-$HOME}"' \
+        'if ! cd "$target_dir" 2>/dev/null; then' \
+        '  cd /workspaces/ros_fun/common_dir 2>/dev/null || cd "$HOME"' \
+        'fi' \
+        'exec xterm -fa Monospace -fs 11 -geometry 120x32 -e bash -lc "cd \"$PWD\"; exec bash -l"' \
+        > /usr/local/bin/open-gui-terminal-here && \
+    printf '%s\n' \
+        '#!/usr/bin/env bash' \
+        'set -euo pipefail' \
         'if [ "$#" -ne 1 ]; then' \
         '  echo "Usage: open-pdf /path/to/file.pdf" >&2' \
         '  exit 2' \
@@ -126,24 +135,36 @@ RUN chmod +x /usr/local/bin/start-novnc.sh && \
         > /usr/local/bin/clip && \
     chmod +x /usr/local/bin/edit-system-bashrc && \
     chmod +x /usr/local/bin/new-gui-terminal && \
+    chmod +x /usr/local/bin/open-gui-terminal-here && \
     chmod +x /usr/local/bin/open-pdf && \
     chmod +x /usr/local/bin/clip && \
     mkdir -p /home/vscode/.fluxbox && \
     mkdir -p /home/vscode/.config && \
+    mkdir -p /home/vscode/.local/share/file-manager/actions && \
     printf '%s\n' \
         '[Default Applications]' \
         'application/pdf=org.gnome.Evince.desktop;evince.desktop;' \
         > /home/vscode/.config/mimeapps.list && \
     printf '%s\n' \
+        '[Desktop Entry]' \
+        'Type=Action' \
+        'Name=Open in Terminal' \
+        'Comment=Open terminal in the current folder' \
+        'Icon=utilities-terminal' \
+        'TargetLocation=true' \
+        'MimeType=inode/directory;' \
+        'SelectionCount=0' \
+        'Exec=/usr/local/bin/open-gui-terminal-here %d' \
+        > /home/vscode/.local/share/file-manager/actions/open-terminal-here.desktop && \
+    printf '%s\n' \
         '[begin] (ROS 2 TSR)' \
         '  [exec] (Terminal) {xterm -fa Monospace -fs 11 -geometry 120x32 -e bash -l}' \
-        '  [exec] (File Manager) {pcmanfm /workspaces/ros_fun/common_dir}' \
+        '  [exec] (common_dir) {pcmanfm /workspaces/ros_fun/common_dir}' \
         '  [exec] (PDF Viewer) {evince}' \
         '  [exec] (Gedit) {gedit}' \
-        '  [exec] (Clipboard Tool) {xterm -fa Monospace -fs 11 -e bash -lc '\''echo "Use: clip \"text\"  (copy), clip  (paste)"; exec bash -l'\''}' \
         '  [separator]' \
         '  [exec] (Instrukcje TSR) {pcmanfm /workspaces/ros_fun/common_dir/TSR_instrukcje}' \
-        '  [exec] (Pakiety TSR) {pcmanfm /home/vscode/tsr_workspaces/example_tsr_ws/src}' \
+        '  [exec] (Przykladowy workspace TSR) {pcmanfm /home/vscode/tsr_workspaces/example_tsr_ws}' \
         '  [separator]' \
         '  [submenu] (ROS 2 Tools)' \
         '    [exec] (Turtlesim) {ros2 run turtlesim turtlesim_node}' \
@@ -183,6 +204,7 @@ RUN chmod +x /usr/local/bin/start-novnc.sh && \
     chown -R vscode:vscode /home/vscode/tsr_workspaces && \
     chown -R vscode:vscode /home/vscode/.fluxbox && \
     chown -R vscode:vscode /home/vscode/.config && \
+    chown -R vscode:vscode /home/vscode/.local && \
     echo "source /etc/profile.d/ros-humble.sh" >> /home/vscode/.bashrc && \
     chown vscode:vscode /home/vscode/.bashrc
 

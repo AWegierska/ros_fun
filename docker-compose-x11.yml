@@ -3,7 +3,7 @@ services:
         build:
             context: .
             dockerfile: .devcontainer/Dockerfile
-        image: ros-fun-tsr-humble:latest
+        image: awegierska/ros2_humble:tsr
         container_name: ros_fun_tsr_x11
         network_mode: host  # Użycie trybu host
         volumes:

@@ -55,7 +55,7 @@ for turtlesim and TurtleBot3 Gazebo exercises.
 | Edit `.bashrc` | `edit-system-bashrc` (opens `/etc/bash.bashrc`) or `nano ~/.bashrc` |
 | Edit files in `common_dir/` via VNC | `gedit` or `nano` |
 | Browse shared folders in VNC | `pcmanfm /workspaces/ros_fun/common_dir` |
-| Access preloaded ROS 2 teaching packages | `/home/vscode/tsr_workspaces/example_tsr_ws/src` (`example_tsr_msgs`, `example_tsr_project`) |
+| Open the example TSR workspace | `/home/vscode/tsr_workspaces/example_tsr_ws` |
 | Use prebuilt TSR interfaces at startup | `ros2 interface show example_tsr_msgs/msg/ExampleMsgType` |
 | Edit files locally | Host editor (volume mount) |
 | Edit files in Codespaces | VS Code editor |

@@ -3,7 +3,7 @@ services:
         build:
             context: .
             dockerfile: .devcontainer/Dockerfile
-        image: ros-fun-tsr-humble:latest
+        image: awegierska/ros2_humble:tsr
         container_name: ros_fun_tsr
         volumes:
             - ./common_dir:/workspaces/ros_fun/common_dir

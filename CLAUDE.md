@@ -20,7 +20,6 @@ robotics lab sessions. The environment runs either locally or via GitHub Codespa
 | `docker-compose.yml` | Local noVNC mode (port 6080) |
 | `docker-compose-x11.yml` | Local X11 forwarding mode |
 | `common_dir/` | Teaching materials and student files (mounted as volume) |
-| `Dockerfile`, `Dockerfile_upgrade` | Legacy full images — do not modify without explicit request |
 
 ## Container Details
 
@@ -29,7 +28,7 @@ robotics lab sessions. The environment runs either locally or via GitHub Codespa
 - **Workdir**: `/home/vscode/ros_ws`
 - **Project mount**: `.` → `/workspaces/ros_fun`
 - **common_dir inside container**: `/workspaces/ros_fun/common_dir/`
-- **TSR packages inside container**: `/home/vscode/ros_ws/src/` (copied from `files_to_copy/tsr_pkgs/`)
+- **Example TSR workspace inside container**: `/home/vscode/tsr_workspaces/example_tsr_ws/`
 
 ## Installed ROS Packages
 
@@ -64,8 +63,9 @@ docker build -f .devcontainer/Dockerfile -t ros-fun-tsr-humble .
 
 - Right-click on desktop opens the fluxbox menu with:
   - Terminal, File Manager (`pcmanfm`), Gedit
-  - quick links to `TSR_instrukcje` and `/home/vscode/ros_ws/src`
+  - quick links to `TSR_instrukcje` and `/home/vscode/tsr_workspaces/example_tsr_ws`
   - ROS launchers (`turtlesim`, `rviz2`, `rqt`, `rqt_graph`, TurtleBot3 Gazebo)
+- In `pcmanfm`, right-clicking empty space in a folder view offers opening a terminal in the current location.
 - Keyboard shortcuts:
   - `Super+T` -> terminal
   - `Super+F` -> file manager

@@ -121,6 +121,8 @@ project directory.
 
 In the noVNC desktop, open Fluxbox menu with right-click. Useful shortcuts:
 `Super+T` (terminal), `Super+F` (file manager), `Super+E` (`gedit`).
+In `pcmanfm`, right-clicking empty space in a folder view opens a context action
+for launching a terminal in that location.
 
 To edit the system-wide Bash startup file from the noVNC terminal:
 
@@ -144,13 +146,13 @@ new-gui-terminal
 You can run this command multiple times to keep separate terminals for ROS
 nodes.
 
-To open preloaded teaching packages:
+To open the example TSR workspace:
 
 ```bash
-pcmanfm ~/tsr_workspaces/example_tsr_ws/src
+pcmanfm ~/tsr_workspaces/example_tsr_ws
 ```
 
-This folder contains `files_to_copy/tsr_pkgs` copied into
+This workspace contains `files_to_copy/tsr_pkgs` copied into
 `~/tsr_workspaces/example_tsr_ws/src` (`example_tsr_msgs`,
 `example_tsr_project`). The workspace is prebuilt in the image.
 
@@ -170,32 +172,45 @@ colcon build
 After building, new terminals automatically source:
 `~/tsr_workspaces/example_tsr_ws/install/setup.bash`.
 
-To build the Codespaces image locally:
+---
+
+## Build Docker Image
+
+Build the TSR image locally:
 
 ```bash
-docker build -f .devcontainer/Dockerfile -t ros-fun-tsr-humble .
+docker build --tag awegierska/ros2_humble:tsr -f .devcontainer/Dockerfile .
 ```
 
-The `ros-fun-tsr-humble:latest` image name is a local tag created by the build.
-It is not downloaded from DockerHub or GHCR. GitHub Codespaces also builds this
-environment directly from `.devcontainer/Dockerfile`.
+The TSR image is built directly from `.devcontainer/Dockerfile`.
 
-To run the same lightweight image locally with noVNC:
+Alternative Compose build command:
 
 ```bash
-docker compose up --build
+docker compose build
 ```
 
-Open [http://localhost:6080](http://localhost:6080) to access the graphical
-desktop.
+---
 
-On a Linux host with X11, you can also use the host display instead of noVNC:
+## Run the Container
+
+With X11:
 
 ```bash
-docker compose -f docker-compose-x11.yml up --build
+docker compose -f docker-compose-x11.yml up
 ```
 
-Then open a second terminal and enter the running container:
+Without X11, using the browser-based desktop:
+
+```bash
+docker compose up
+```
+
+After the container starts without X11, open:
+
+[http://localhost:6080](http://localhost:6080)
+
+For the X11 container, open a second terminal and enter the running container:
 
 ```bash
 docker compose -f docker-compose-x11.yml exec ros2 bash
@@ -221,68 +236,66 @@ ros2 run plotjuggler plotjuggler
 ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
 ```
 
-The legacy full laboratory image can still be built from `Dockerfile` and
-`Dockerfile_upgrade` when the larger Jupyter/Nav2/Create3 setup is needed.
+---
 
-You need to have Docker and docker compose installed.
-It can be docker engine:
-Instructions for Ubuntu are provided [here](https://docs.docker.com/engine/install/ubuntu/)
+## Docker Images
 
-but for beginners, an easier option might be Docker Desktop: [Windows](https://docs.docker.com/desktop/install/windows-install/) [Linux](https://docs.docker.com/desktop/install/linux-install/), [Mac](https://docs.docker.com/desktop/install/mac-install/)
+List local Docker images:
 
+```bash
+docker images
+```
 
+Remove the TSR Docker image:
 
-
-https://github.com/AdoHaha/ros_fun/assets/2242877/33d32bce-2f59-4905-88df-bea3bd0eb838
-
-
- I suggest cloning this repository.
-
-
-`git clone https://github.com/AdoHaha/ros_fun`
-
-`cd ros_fun`
-
-Use 
-
-`docker compose up ` to run the container.
-
-Also, run 
-
-`docker container exec -it --user ubuntu ros_fun bash -i /home/ubuntu/run_jupyter.sh`
-
-to start jupyter inside the container.
-
-Access the virtual machine screen by navigating to 
-
-[http://localhost:6080](http://localhost:6080)
-
-access the jupyter notebooks by navigating to:
-
-[http://localhost:8888](http://localhost:8888) 
-
-on your **host** machine. 
-
-From there open [*exercises folder*](http://localhost:8888/exercises/1.%20introduction.ipynb) to access introduction
-
-The demo uses ROS Humble
+```bash
+docker rmi awegierska/ros2_humble:tsr
+```
 
 ---
 
-[Presentation Robot Fun with ROS2 from PyCon PL](https://www.youtube.com/watch?v=K5yGKd7ig7A)
+## Docker Containers
 
+List all containers and check whether they are running or stopped:
 
-Budowa bazy docker'a
+```bash
+docker ps -a
+```
 
-`docker build --tag awegierska/ros2_humble:lab_mobile_ROS2_base -f Dockerfile .`
+Restart the standard TSR container:
 
-Budowa docelowej wersji
+```bash
+docker restart ros_fun_tsr
+```
 
-`docker build --tag awegierska/ros2_humble:lab_mobile_ROS2 -f Dockerfile_upgrade .`
+Restart the X11 TSR container:
 
-Uruchomienie docker compose
-'docker compose up'
+```bash
+docker restart ros_fun_tsr_x11
+```
 
+Stop and remove containers created by the standard Compose file:
 
-Uruchomienie docker compose z X11
-'docker compose -f docker-compose-x11.yml up'
+```bash
+docker compose down
+```
+
+Stop and remove containers created by the X11 Compose file:
+
+```bash
+docker compose -f docker-compose-x11.yml down
+```
+
+Remove the standard TSR container manually:
+
+```bash
+docker rm ros_fun_tsr
+```
+
+Remove the X11 TSR container manually:
+
+```bash
+docker rm ros_fun_tsr_x11
+```
+
+---
