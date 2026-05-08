@@ -8,7 +8,7 @@ export TURTLEBOT3_MODEL="${TURTLEBOT3_MODEL:-burger}"
 export KEY_REPEAT_DELAY="${KEY_REPEAT_DELAY:-250}"
 export KEY_REPEAT_RATE="${KEY_REPEAT_RATE:-35}"
 
-touch /tmp/x11vnc.log /tmp/fluxbox.log /tmp/xterm.log
+touch /tmp/x11vnc.log /tmp/fluxbox.log /tmp/lxterminal.log
 touch /tmp/start-novnc.trace
 echo "[start] $(date -Is)" >> /tmp/start-novnc.trace
 
@@ -49,12 +49,13 @@ timeout 2s env DISPLAY="$DISPLAY" autocutsel -fork >/tmp/autocutsel-clipboard.lo
 timeout 2s env DISPLAY="$DISPLAY" autocutsel -selection PRIMARY -fork >/tmp/autocutsel-primary.log 2>&1 || true
 
 # Start initial terminal
-echo "[step] start xterm" >> /tmp/start-novnc.trace
-DISPLAY="$DISPLAY" xterm -geometry 120x32+40+40 \
-    -title "ROS 2 Humble terminal" \
-    -fa Monospace -fs 11 \
-    -e bash -lc 'cd /workspaces/ros_fun/common_dir 2>/dev/null || cd /workspaces/ros_fun 2>/dev/null || cd "$HOME/ros_ws"; echo "Right-click on desktop for Fluxbox menu."; echo "Shortcuts: Super+T terminal, Super+F file manager, Super+E gedit."; echo "Use new-gui-terminal to open another GUI terminal."; echo "Use edit-system-bashrc to edit /etc/bash.bashrc."; exec bash -l' \
-    >/tmp/xterm.log 2>&1 &
+echo "[step] start lxterminal" >> /tmp/start-novnc.trace
+DISPLAY="$DISPLAY" lxterminal --no-remote \
+    --geometry=120x32 \
+    --working-directory=/workspaces/ros_fun/common_dir \
+    --title="ROS 2 Humble terminal" \
+    --command='bash -lc '\''echo "Right-click on desktop for Fluxbox menu."; echo "Shortcuts: Super+T terminal, Super+F file manager, Super+E gedit."; echo "Use new-gui-terminal to open another GUI terminal."; echo "Use edit-system-bashrc to edit /etc/bash.bashrc."; exec bash -l'\''' \
+    >/tmp/lxterminal.log 2>&1 &
 
 # Start VNC server
 echo "[step] start x11vnc" >> /tmp/start-novnc.trace

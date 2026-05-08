@@ -23,6 +23,7 @@ RUN apt-get update && \
         gedit \
         git \
         less \
+        lxterminal \
         nano \
         novnc \
         pcmanfm \
@@ -87,11 +88,11 @@ RUN chmod +x /usr/local/bin/start-novnc.sh && \
         '<html lang="en">' \
         '<head>' \
         '  <meta charset="utf-8">' \
-        '  <meta http-equiv="refresh" content="0; url=vnc.html?autoconnect=true&resize=remote&reconnect=true">' \
+        '  <meta http-equiv="refresh" content="0; url=vnc.html?autoconnect=true&resize=scale&reconnect=true">' \
         '  <title>ROS GUI noVNC</title>' \
         '</head>' \
         '<body>' \
-        '  <p>Opening <a href="vnc.html?autoconnect=true&resize=remote&reconnect=true">noVNC</a>...</p>' \
+        '  <p>Opening <a href="vnc.html?autoconnect=true&resize=scale&reconnect=true">noVNC</a>...</p>' \
         '</body>' \
         '</html>' \
         > /usr/share/novnc/index.html && \
@@ -104,7 +105,7 @@ RUN chmod +x /usr/local/bin/start-novnc.sh && \
         '#!/usr/bin/env bash' \
         'set -euo pipefail' \
         'DISPLAY="${DISPLAY:-:1}"' \
-        'xterm -geometry "${1:-120x32}" -fa Monospace -fs 11 -e bash -lc "cd /workspaces/ros_fun/common_dir 2>/dev/null || cd /workspaces/ros_fun 2>/dev/null || cd \"$HOME/ros_ws\"; exec bash -l" >/tmp/xterm-extra.log 2>&1 &' \
+        'lxterminal --no-remote --geometry="${1:-120x32}" --working-directory="/workspaces/ros_fun/common_dir" --command="bash -lc '\''exec bash -l'\''" >/tmp/lxterminal-extra.log 2>&1 &' \
         > /usr/local/bin/new-gui-terminal && \
     printf '%s\n' \
         '#!/usr/bin/env bash' \
@@ -113,7 +114,7 @@ RUN chmod +x /usr/local/bin/start-novnc.sh && \
         'if ! cd "$target_dir" 2>/dev/null; then' \
         '  cd /workspaces/ros_fun/common_dir 2>/dev/null || cd "$HOME"' \
         'fi' \
-        'exec xterm -fa Monospace -fs 11 -geometry 120x32 -e bash -lc "cd \"$PWD\"; exec bash -l"' \
+        'exec lxterminal --no-remote --geometry=120x32 --working-directory="$PWD" --command="bash -lc '\''exec bash -l'\''"' \
         > /usr/local/bin/open-gui-terminal-here && \
     printf '%s\n' \
         '#!/usr/bin/env bash' \
@@ -158,7 +159,7 @@ RUN chmod +x /usr/local/bin/start-novnc.sh && \
         > /home/vscode/.local/share/file-manager/actions/open-terminal-here.desktop && \
     printf '%s\n' \
         '[begin] (ROS 2 TSR)' \
-        '  [exec] (Terminal) {xterm -fa Monospace -fs 11 -geometry 120x32 -e bash -l}' \
+        '  [exec] (Terminal) {lxterminal --no-remote --geometry=120x32 --working-directory=/workspaces/ros_fun/common_dir --command="bash -lc '\''exec bash -l'\''"}' \
         '  [exec] (common_dir) {pcmanfm /workspaces/ros_fun/common_dir}' \
         '  [exec] (PDF Viewer) {evince}' \
         '  [exec] (Gedit) {gedit}' \
@@ -176,7 +177,7 @@ RUN chmod +x /usr/local/bin/start-novnc.sh && \
         '    [exec] (Gazebo TurtleBot3) {ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py}' \
         '  [end]' \
         '  [separator]' \
-        '  [exec] (Edit .bashrc) {xterm -fa Monospace -fs 11 -e bash -lc '\''edit-system-bashrc; exec bash -l'\''}' \
+        '  [exec] (Edit .bashrc) {lxterminal --no-remote --geometry=120x32 --working-directory=/workspaces/ros_fun/common_dir --command="bash -lc '\''edit-system-bashrc; exec bash -l'\''"}' \
         '  [restart] (Restart Fluxbox)' \
         '[end]' \
         > /home/vscode/.fluxbox/menu && \
@@ -188,7 +189,7 @@ RUN chmod +x /usr/local/bin/start-novnc.sh && \
         > /home/vscode/.fluxbox/init && \
     printf '%s\n' \
         '# Quick launchers' \
-        'Mod4 t :Exec xterm -fa Monospace -fs 11 -geometry 120x32 -e bash -l' \
+        'Mod4 t :Exec lxterminal --no-remote --geometry=120x32 --working-directory=/workspaces/ros_fun/common_dir --command="bash -lc '\''exec bash -l'\''"' \
         'Mod4 f :Exec pcmanfm /workspaces/ros_fun/common_dir' \
         'Mod4 e :Exec gedit' \
         > /home/vscode/.fluxbox/keys && \
@@ -200,6 +201,7 @@ RUN chmod +x /usr/local/bin/start-novnc.sh && \
         "export DISPLAY=\${DISPLAY:-:1}" \
         "export LIBGL_ALWAYS_SOFTWARE=1" \
         "export QT_X11_NO_MITSHM=1" \
+        "export PS1='\${debian_chroot:+(\$debian_chroot)}\\[\\033[01;32m\\]\\u@\\h\\[\\033[00m\\]:\\[\\033[01;34m\\]\\w\\[\\033[00m\\]\\$ '" \
         > /etc/profile.d/ros-humble.sh && \
     chown -R vscode:vscode /home/vscode/tsr_workspaces && \
     chown -R vscode:vscode /home/vscode/.fluxbox && \
