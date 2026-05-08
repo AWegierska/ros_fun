@@ -38,7 +38,6 @@ RUN pip3 install --upgrade pip && \
         "setuptools<80" \
         notebook \
         jupyterlab \
-        jupyterlab-rise \
         opencv-contrib-python \
         bqplot \
         tornado==6.1 \
@@ -60,6 +59,8 @@ RUN cd /home/ubuntu/ros_ws && . /opt/ros/humble/setup.sh && colcon build --symli
 #from https://ubuntu.com/blog/simulate-the-turtlebot3
 RUN mkdir -p /home/ubuntu/turtlebot3_ws/src
 COPY ./files_to_copy/run_jupyter.sh /home/ubuntu/run_jupyter.sh
+COPY ./files_to_copy/open_jupyter_browser.sh /home/ubuntu/open_jupyter_browser.sh
+RUN chmod +x /home/ubuntu/open_jupyter_browser.sh
 COPY ./files_to_copy/jupyter_notebook_config.py /home/ubuntu/.jupyter/jupyter_notebook_config.py
 
 RUN cd /home/ubuntu/turtlebot3_ws/src && git clone -b humble https://github.com/ros-planning/navigation2.git

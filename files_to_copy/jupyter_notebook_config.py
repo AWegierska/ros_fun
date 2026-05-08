@@ -139,10 +139,10 @@ c.NotebookApp.allow_remote_access = True
 #  This option is intended to be used when the URL to display to the user cannot
 #  be determined reliably by the Jupyter notebook server (proxified or
 #  containerized setups for example).
-#c.NotebookApp.custom_display_url = ''
+c.NotebookApp.custom_display_url = 'http://localhost:8888/'
 
 ## The default URL to redirect to from `/`
-#c.NotebookApp.default_url = '/tree'
+c.NotebookApp.default_url = '/tree'
 
 ## Disable cross-site-request-forgery protection
 #  
@@ -272,7 +272,8 @@ c.NotebookApp.ip = '0.0.0.0'
 #  platform dependent and determined by the python standard library `webbrowser`
 #  module, unless it is overridden using the --browser (NotebookApp.browser)
 #  configuration option.
-#c.NotebookApp.open_browser = True
+c.NotebookApp.browser = '/home/ubuntu/open_jupyter_browser.sh %s'
+c.NotebookApp.open_browser = True
 
 ## Hashed password to use for web authentication.
 #  
