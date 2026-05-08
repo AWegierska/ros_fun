@@ -1,8 +1,5 @@
 services:
     ros2:
-        build:
-            context: .
-            dockerfile: .devcontainer/Dockerfile
         image: awegierska/ros2_humble:tsr
         container_name: ros_fun_tsr
         volumes:

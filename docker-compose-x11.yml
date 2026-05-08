@@ -1,34 +1,25 @@
 services:
     ros2:
-        build:
-            context: .
-            dockerfile: .devcontainer/Dockerfile
         image: awegierska/ros2_humble:tsr
         container_name: ros_fun_tsr_x11
-        network_mode: host  # Użycie trybu host
+        network_mode: host  # Użycie trybu host jak w branchu roboty mobilne
         volumes:
             - ./common_dir:/workspaces/ros_fun/common_dir
-            - /tmp/.X11-unix:/tmp/.X11-unix  # Montowanie socketu X11
+            - ./gazebo:/home/vscode/.gazebo
         environment:
-            - DISPLAY=${DISPLAY:-:0}  # Przekazanie zmiennej DISPLAY do kontenera
+            - DISPLAY=:5
             - LIBGL_ALWAYS_SOFTWARE=1
             - QT_X11_NO_MITSHM=1
             - TURTLEBOT3_MODEL=burger
             - RMW_IMPLEMENTATION=rmw_fastrtps_cpp  # rmw_cyclonedds_cpp lub rmw_fastrtps_cpp dla FastDDS
             - LRM_numer_stanowiska=${LRM_numer_stanowiska:-}
+        devices:
+            - /dev/dri:/dev/dri
+        group_add:
+            - video
         working_dir: /workspaces/ros_fun/common_dir
-        command: >
-            bash -lc '
-              echo "ROS 2 Humble X11 container is running.";
-              echo "Open a shell with:";
-              echo "  docker compose -f docker-compose-x11.yml exec ros2 bash";
-              echo "Example GUI commands inside the shell:";
-              echo "  ros2 run turtlesim turtlesim_node";
-              echo "  rqt_graph";
-              echo "  rviz2";
-              echo "  ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py";
-              sleep infinity
-            '
         restart: unless-stopped
         shm_size: '2g'
         privileged: true
+        security_opt:
+            - seccomp:unconfined
