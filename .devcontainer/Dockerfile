@@ -50,6 +50,7 @@ RUN apt-get update && \
         xdg-utils \
         xfonts-base \
         xterm \
+        zip \
         xvfb && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
